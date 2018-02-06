@@ -73,6 +73,7 @@ def pull_quotes():
                 ).search(
                     header_dict[u'value']
                 ).group(1)
+                break
         print 'message pulled:', phone_number
         print quote
         gmail.users().messages().modify(
