@@ -8,6 +8,11 @@ from oauth2client.file import Storage
 import select
 import socket
 import re
+
+import google.cloud.logging
+client = google.cloud.logging.Client()
+client.setup_logging()
+import logging
                 
 UNREAD_QUOTES = 'Label_8'
 READ_QUOTES = 'Label_9'
@@ -74,8 +79,8 @@ def pull_quotes():
                     header_dict[u'value']
                 ).group(1)
                 break
-        print 'message pulled:', phone_number
-        print quote
+        logging.info('message pulled: %s', phone_number)
+        logging.info(quote)
         gmail.users().messages().modify(
             userId='me',
             id=mid,
@@ -186,7 +191,7 @@ while True:
     readable,_,_ = select.select(conns,[],[],0.0)
     for conn in readable:
         message = conn.recv(1024).strip()
-        print 'message:', message
+        logging.info('message:', message)
         if not message:
             close_conn(conn)
             continue
