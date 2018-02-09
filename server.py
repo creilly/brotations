@@ -24,6 +24,7 @@ GET_QUOTE = 'q'
 GET_PHONE_NUMBER = 'u'
 GET_NUM_USERS = 'nu'
 GET_NUM_QUOTES = 'nq'
+PULL_QUOTES = 'pq'
 
 SUCCESS = 's'
 INVALID_FORMAT = 'i'
@@ -191,12 +192,17 @@ while True:
     readable,_,_ = select.select(conns,[],[],0.0)
     for conn in readable:
         message = conn.recv(1024).strip()
-        logging.info('message:', message)
+        logging.info('message: %s', message)
         if not message:
             close_conn(conn)
             continue
         message_components = message.split(' ')
         command = message_components[0]
+        if command == PULL_QUOTES:
+            pull_quotes()
+            conn.send('ok')
+            close_conn(conn)
+            continue
         if command == GET_QUOTE:
             try:
                 user_id = message_components[1]
@@ -239,4 +245,3 @@ while True:
         else:
             conn.send(INVALID_FORMAT)
         close_conn(conn)
-    pull_quotes()

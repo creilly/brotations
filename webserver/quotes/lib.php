@@ -23,6 +23,7 @@ else {return false;}
 
 }
 
+function pull_quotes() {send_message('pq');}
 function get_num_users() {return send_message('nu');}
 function get_num_quotes($user_id) {return send_message('nq' . ' ' . $user_id);}
 function get_quote($user_id,$quote_id) {return send_message('q' . ' ' . $user_id . ' ' . $quote_id);}

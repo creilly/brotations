@@ -8,6 +8,7 @@ send your brotes to (925)-421-6976
 <th>phone number</th><th>quotes</th>
 </tr>
 <?php
+pull_quotes();
 for ($user_id = 0; $user_id < get_num_users(); $user_id++) {
 echo "<tr>";
 echo "<td>";
