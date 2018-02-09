@@ -12,6 +12,7 @@ $user_id = explode('/',$url)[2];
 <?php echo get_formatted_phone_number($user_id); ?>
 </h2>
 <?php
+pull_quotes();
 for ($quote_id = 0; $quote_id < get_num_quotes($user_id); $quote_id++) {
 echo "<hr>";
 echo get_quote($user_id,$quote_id);
